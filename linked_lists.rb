@@ -88,6 +88,24 @@ class LinkedList
         end
         string + "nil"
     end
+    def insert_at(value, index)
+        node = @head
+        index.times do
+            node = node.pointer
+        end
+        at(index-1).nil? ? @head = Node.new(value, node) : at(index-1).pointer = Node.new(value, node)
+        self
+    end
+    def delete_at(index)
+        if at(index).nil?
+            return "No such node"
+        elsif index == 0
+            @head = at(1)
+        else
+            at(index-1).pointer = at(index+1)
+        end
+        self
+    end
 end
 
 class Node
@@ -119,3 +137,5 @@ puts "\nDoes '#{my_friends.listname}' contain Pablo: #{my_friends.contains?('Pab
 puts "Does '#{my_friends.listname}' contain Rosa: #{my_friends.contains?('Rosa')}"
 puts "What index in the list is Pablo at: #{my_friends.find('Pablo')}"
 p my_friends.to_s
+p my_friends.insert_at('Jose',1).to_s
+p my_friends.delete_at(2).to_s
